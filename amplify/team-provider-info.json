@@ -1,0 +1,14 @@
+{
+    "demo": {
+        "awscloudformation": {
+            "AuthRoleName": "games-amplify-ts-20190306195343-authRole",
+            "UnauthRoleArn": "arn:aws:iam::520335913573:role/games-amplify-ts-20190306195343-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::520335913573:role/games-amplify-ts-20190306195343-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "games-amplify-ts-20190306195343-deployment",
+            "UnauthRoleName": "games-amplify-ts-20190306195343-unauthRole",
+            "StackName": "games-amplify-ts-20190306195343",
+            "StackId": "arn:aws:cloudformation:us-east-1:520335913573:stack/games-amplify-ts-20190306195343/d767cd10-407b-11e9-8d63-0e92b042adf6"
+        }
+    }
+}

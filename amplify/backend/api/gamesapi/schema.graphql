@@ -1,0 +1,43 @@
+type Image @model {
+  id: ID!
+  url: String
+  width: Int
+  height: Int
+  cloudinary_id: String
+}
+
+type Game @model {
+  id: ID!
+  name: String
+  popularity: Float
+  url: String
+  summary: String
+  cover: Image!
+  reviews: [Review!] @connection
+  achievements: [Achievement!] @connection
+  platforms: [Platform!] @connection
+}
+
+type Platform @model {
+  id: ID!
+  name: String
+  url: String
+}
+
+type Review @model {
+  likes: Int
+  views: Int
+  content: String
+  id: ID
+  introduction: String
+}
+
+type Achievement @model {
+  id: ID!
+  name: String
+  description: String
+}
+
+type Query {
+  popularGames: [Game]
+}
