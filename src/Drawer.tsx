@@ -106,7 +106,7 @@ function PersistentDrawerLeft() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" color="inherit" noWrap>
-            Persistent drawer
+            Gamer Fi
           </Typography>
         </Toolbar>
       </AppBar>
