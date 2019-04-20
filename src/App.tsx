@@ -9,6 +9,10 @@ const theme = createMuiTheme({
   palette: {
     primary: grey,
     type: "dark"
+  },
+  typography: {
+    useNextVariants: true,
+    fontFamily: '"Press Start 2P", cursive'
   }
 });
 const App = () => (

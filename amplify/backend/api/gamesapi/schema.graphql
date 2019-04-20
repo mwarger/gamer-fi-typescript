@@ -12,7 +12,7 @@ type Game @model {
   popularity: Float
   url: String
   summary: String
-  cover: Image!
+  cover: Image
   reviews: [Review!] @connection
   achievements: [Achievement!] @connection
   platforms: [Platform!] @connection
@@ -39,5 +39,5 @@ type Achievement @model {
 }
 
 type Query {
-  popularGames: [Game]
+  popularGames: [Game!]
 }

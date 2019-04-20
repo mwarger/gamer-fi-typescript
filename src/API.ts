@@ -264,7 +264,7 @@ export type CreateGameMutation = {
       width: number | null,
       height: number | null,
       cloudinary_id: string | null,
-    },
+    } | null,
     reviews:  {
       __typename: "ModelReviewConnection",
       items:  Array< {
@@ -319,7 +319,7 @@ export type UpdateGameMutation = {
       width: number | null,
       height: number | null,
       cloudinary_id: string | null,
-    },
+    } | null,
     reviews:  {
       __typename: "ModelReviewConnection",
       items:  Array< {
@@ -374,7 +374,7 @@ export type DeleteGameMutation = {
       width: number | null,
       height: number | null,
       cloudinary_id: string | null,
-    },
+    } | null,
     reviews:  {
       __typename: "ModelReviewConnection",
       items:  Array< {
@@ -548,7 +548,7 @@ export type PopularGamesQuery = {
       width: number | null,
       height: number | null,
       cloudinary_id: string | null,
-    },
+    } | null,
     reviews:  {
       __typename: "ModelReviewConnection",
       items:  Array< {
@@ -581,7 +581,7 @@ export type PopularGamesQuery = {
       } | null > | null,
       nextToken: string | null,
     } | null,
-  } | null > | null,
+  } > | null,
 };
 
 export type GetImageQueryVariables = {
@@ -639,7 +639,7 @@ export type GetGameQuery = {
       width: number | null,
       height: number | null,
       cloudinary_id: string | null,
-    },
+    } | null,
     reviews:  {
       __typename: "ModelReviewConnection",
       items:  Array< {
@@ -698,7 +698,7 @@ export type ListGamesQuery = {
         width: number | null,
         height: number | null,
         cloudinary_id: string | null,
-      },
+      } | null,
       reviews:  {
         __typename: "ModelReviewConnection",
         nextToken: string | null,
@@ -864,7 +864,7 @@ export type OnCreateGameSubscription = {
       width: number | null,
       height: number | null,
       cloudinary_id: string | null,
-    },
+    } | null,
     reviews:  {
       __typename: "ModelReviewConnection",
       items:  Array< {
@@ -915,7 +915,7 @@ export type OnUpdateGameSubscription = {
       width: number | null,
       height: number | null,
       cloudinary_id: string | null,
-    },
+    } | null,
     reviews:  {
       __typename: "ModelReviewConnection",
       items:  Array< {
@@ -966,7 +966,7 @@ export type OnDeleteGameSubscription = {
       width: number | null,
       height: number | null,
       cloudinary_id: string | null,
-    },
+    } | null,
     reviews:  {
       __typename: "ModelReviewConnection",
       items:  Array< {
