@@ -11,11 +11,11 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
-import { GameDashboard } from "./GameDashboard";
+import { PopularGames } from "./PopularGames";
+import { Router, Link as RouterLink } from "@reach/router";
+import Link from "@material-ui/core/Link";
+import NavItemLink from "./NavItemLink";
 
 const drawerWidth = 240;
 
@@ -126,25 +126,9 @@ function PersistentDrawerLeft() {
         </div>
         <Divider />
         <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+          <NavItemLink to="games" label="My Games" />
+          <NavItemLink to="reviews" label="Reviews" />
+          <NavItemLink to="popular-games" label="Popular Games" />
         </List>
       </Drawer>
       <main
@@ -153,7 +137,9 @@ function PersistentDrawerLeft() {
         })}
       >
         <div className={classes.drawerHeader} />
-        <GameDashboard />
+        <Router>
+          <PopularGames path="popular-games" />
+        </Router>
       </main>
     </div>
   );

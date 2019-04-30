@@ -4,6 +4,7 @@ import { createMuiTheme } from "@material-ui/core/styles";
 import { grey } from "@material-ui/core/colors";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import PersistentDrawerLeft from "./Drawer";
+import { withAuthenticator } from "aws-amplify-react";
 
 const theme = createMuiTheme({
   palette: {
@@ -22,4 +23,4 @@ const App = () => (
   </ThemeProvider>
 );
 
-export default App;
+export default withAuthenticator(App);

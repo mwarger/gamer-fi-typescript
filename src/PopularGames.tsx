@@ -3,8 +3,9 @@ import Typography from "@material-ui/core/Typography";
 import { API, graphqlOperation } from "aws-amplify";
 import { popularGames } from "./graphql/queries";
 import { PopularGamesQuery } from "./API";
+import { RouteComponentProps } from "@reach/router";
 
-export const GameDashboard: React.FC = () => {
+export const PopularGames: React.FC<RouteComponentProps> = () => {
   const [gameData, setGameData] = React.useState<PopularGamesQuery | undefined>(
     undefined
   );
@@ -27,6 +28,7 @@ export const GameDashboard: React.FC = () => {
   return (
     <>
       <Typography variant="h3">My Games</Typography>
+      <Typography> {JSON.stringify(gameData)}</Typography>
     </>
   );
 };

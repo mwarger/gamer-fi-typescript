@@ -1,5 +1,11 @@
 {
     "AppSyncApiName": "gamesapi",
     "DynamoDBBillingMode": "PAY_PER_REQUEST",
-    "APIKeyExpirationEpoch": "1587250515"
+    "APIKeyExpirationEpoch": "1587250515",
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authcognitof3205748",
+            "Outputs.UserPoolId"
+        ]
+    }
 }
