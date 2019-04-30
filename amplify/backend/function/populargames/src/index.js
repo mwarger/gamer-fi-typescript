@@ -15,7 +15,7 @@ exports.handler = function(event, context) {
   // Make a request for a user with a given ID
   axios
     .get(
-      `https://api-endpoint.igdb.com/games/?fields=name,popularity&order=popularity:desc`,
+      `https://api-endpoint.igdb.com/games/?fields=name,popularity,url,cover&order=popularity:desc`,
       {
         headers: { "user-key": "ae2544f440fc362f5391c8b21b5c9453" }
       }

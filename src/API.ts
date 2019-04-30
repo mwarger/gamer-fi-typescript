@@ -1,113 +1,68 @@
 /* tslint:disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreateImageInput = {
-  id?: string | null,
-  url?: string | null,
-  width?: number | null,
-  height?: number | null,
-  cloudinary_id?: string | null,
-};
-
-export type UpdateImageInput = {
-  id: string,
-  url?: string | null,
-  width?: number | null,
-  height?: number | null,
-  cloudinary_id?: string | null,
-};
-
-export type DeleteImageInput = {
-  id?: string | null,
-};
-
-export type CreateGameInput = {
+export type CreateGameItemInput = {
   id?: string | null,
   name?: string | null,
-  popularity?: number | null,
-  url?: string | null,
-  summary?: string | null,
+  likes?: number | null,
+  rating?: number | null,
 };
 
-export type UpdateGameInput = {
+export type UpdateGameItemInput = {
   id: string,
   name?: string | null,
-  popularity?: number | null,
-  url?: string | null,
-  summary?: string | null,
+  likes?: number | null,
+  rating?: number | null,
 };
 
-export type DeleteGameInput = {
+export type DeleteGameItemInput = {
   id?: string | null,
 };
 
-export type CreatePlatformInput = {
+export type CreateNoteInput = {
   id?: string | null,
-  name?: string | null,
-  url?: string | null,
-  gamePlatformsId?: string | null,
+  entryDate?: string | null,
+  comment?: string | null,
+  gameItemNotesId?: string | null,
 };
 
-export type UpdatePlatformInput = {
+export type UpdateNoteInput = {
   id: string,
-  name?: string | null,
-  url?: string | null,
-  gamePlatformsId?: string | null,
+  entryDate?: string | null,
+  comment?: string | null,
+  gameItemNotesId?: string | null,
 };
 
-export type DeletePlatformInput = {
+export type DeleteNoteInput = {
   id?: string | null,
 };
 
 export type CreateReviewInput = {
-  likes?: number | null,
-  views?: number | null,
-  content?: string | null,
   id?: string | null,
-  introduction?: string | null,
-  gameReviewsId?: string | null,
+  score?: number | null,
+  content?: string | null,
+  reviewGameId?: string | null,
 };
 
 export type UpdateReviewInput = {
-  likes?: number | null,
-  views?: number | null,
-  content?: string | null,
   id: string,
-  introduction?: string | null,
-  gameReviewsId?: string | null,
+  score?: number | null,
+  content?: string | null,
+  reviewGameId?: string | null,
 };
 
 export type DeleteReviewInput = {
   id?: string | null,
 };
 
-export type CreateAchievementInput = {
-  id?: string | null,
-  name?: string | null,
-  description?: string | null,
-  gameAchievementsId?: string | null,
-};
-
-export type UpdateAchievementInput = {
-  id: string,
-  name?: string | null,
-  description?: string | null,
-  gameAchievementsId?: string | null,
-};
-
-export type DeleteAchievementInput = {
-  id?: string | null,
-};
-
-export type ModelImageFilterInput = {
+export type ModelGameItemFilterInput = {
   id?: ModelIDFilterInput | null,
-  url?: ModelStringFilterInput | null,
-  width?: ModelIntFilterInput | null,
-  height?: ModelIntFilterInput | null,
-  cloudinary_id?: ModelStringFilterInput | null,
-  and?: Array< ModelImageFilterInput | null > | null,
-  or?: Array< ModelImageFilterInput | null > | null,
-  not?: ModelImageFilterInput | null,
+  name?: ModelStringFilterInput | null,
+  likes?: ModelIntFilterInput | null,
+  rating?: ModelIntFilterInput | null,
+  and?: Array< ModelGameItemFilterInput | null > | null,
+  or?: Array< ModelGameItemFilterInput | null > | null,
+  not?: ModelGameItemFilterInput | null,
 };
 
 export type ModelIDFilterInput = {
@@ -148,304 +103,166 @@ export type ModelIntFilterInput = {
   between?: Array< number | null > | null,
 };
 
-export type ModelGameFilterInput = {
+export type ModelNoteFilterInput = {
   id?: ModelIDFilterInput | null,
-  name?: ModelStringFilterInput | null,
-  popularity?: ModelFloatFilterInput | null,
-  url?: ModelStringFilterInput | null,
-  summary?: ModelStringFilterInput | null,
-  and?: Array< ModelGameFilterInput | null > | null,
-  or?: Array< ModelGameFilterInput | null > | null,
-  not?: ModelGameFilterInput | null,
-};
-
-export type ModelFloatFilterInput = {
-  ne?: number | null,
-  eq?: number | null,
-  le?: number | null,
-  lt?: number | null,
-  ge?: number | null,
-  gt?: number | null,
-  contains?: number | null,
-  notContains?: number | null,
-  between?: Array< number | null > | null,
-};
-
-export type ModelPlatformFilterInput = {
-  id?: ModelIDFilterInput | null,
-  name?: ModelStringFilterInput | null,
-  url?: ModelStringFilterInput | null,
-  and?: Array< ModelPlatformFilterInput | null > | null,
-  or?: Array< ModelPlatformFilterInput | null > | null,
-  not?: ModelPlatformFilterInput | null,
+  entryDate?: ModelStringFilterInput | null,
+  comment?: ModelStringFilterInput | null,
+  and?: Array< ModelNoteFilterInput | null > | null,
+  or?: Array< ModelNoteFilterInput | null > | null,
+  not?: ModelNoteFilterInput | null,
 };
 
 export type ModelReviewFilterInput = {
-  likes?: ModelIntFilterInput | null,
-  views?: ModelIntFilterInput | null,
-  content?: ModelStringFilterInput | null,
   id?: ModelIDFilterInput | null,
-  introduction?: ModelStringFilterInput | null,
+  score?: ModelIntFilterInput | null,
+  content?: ModelStringFilterInput | null,
+  reviewGameId?: ModelIDFilterInput | null,
   and?: Array< ModelReviewFilterInput | null > | null,
   or?: Array< ModelReviewFilterInput | null > | null,
   not?: ModelReviewFilterInput | null,
 };
 
-export type ModelAchievementFilterInput = {
-  id?: ModelIDFilterInput | null,
-  name?: ModelStringFilterInput | null,
-  description?: ModelStringFilterInput | null,
-  and?: Array< ModelAchievementFilterInput | null > | null,
-  or?: Array< ModelAchievementFilterInput | null > | null,
-  not?: ModelAchievementFilterInput | null,
+export type CreateGameItemMutationVariables = {
+  input: CreateGameItemInput,
 };
 
-export type CreateImageMutationVariables = {
-  input: CreateImageInput,
-};
-
-export type CreateImageMutation = {
-  createImage:  {
-    __typename: "Image",
-    id: string,
-    url: string | null,
-    width: number | null,
-    height: number | null,
-    cloudinary_id: string | null,
-  } | null,
-};
-
-export type UpdateImageMutationVariables = {
-  input: UpdateImageInput,
-};
-
-export type UpdateImageMutation = {
-  updateImage:  {
-    __typename: "Image",
-    id: string,
-    url: string | null,
-    width: number | null,
-    height: number | null,
-    cloudinary_id: string | null,
-  } | null,
-};
-
-export type DeleteImageMutationVariables = {
-  input: DeleteImageInput,
-};
-
-export type DeleteImageMutation = {
-  deleteImage:  {
-    __typename: "Image",
-    id: string,
-    url: string | null,
-    width: number | null,
-    height: number | null,
-    cloudinary_id: string | null,
-  } | null,
-};
-
-export type CreateGameMutationVariables = {
-  input: CreateGameInput,
-};
-
-export type CreateGameMutation = {
-  createGame:  {
-    __typename: "Game",
+export type CreateGameItemMutation = {
+  createGameItem:  {
+    __typename: "GameItem",
     id: string,
     name: string | null,
-    popularity: number | null,
-    url: string | null,
-    summary: string | null,
-    cover:  {
-      __typename: "Image",
-      id: string,
-      url: string | null,
-      width: number | null,
-      height: number | null,
-      cloudinary_id: string | null,
-    } | null,
+    likes: number | null,
+    rating: number | null,
     reviews:  {
       __typename: "ModelReviewConnection",
       items:  Array< {
         __typename: "Review",
-        likes: number | null,
-        views: number | null,
+        id: string,
+        score: number | null,
         content: string | null,
-        id: string | null,
-        introduction: string | null,
+        reviewGameId: string | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
-    achievements:  {
-      __typename: "ModelAchievementConnection",
+    notes:  {
+      __typename: "ModelNoteConnection",
       items:  Array< {
-        __typename: "Achievement",
+        __typename: "Note",
         id: string,
-        name: string | null,
-        description: string | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
-    platforms:  {
-      __typename: "ModelPlatformConnection",
-      items:  Array< {
-        __typename: "Platform",
-        id: string,
-        name: string | null,
-        url: string | null,
+        entryDate: string | null,
+        comment: string | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
   } | null,
 };
 
-export type UpdateGameMutationVariables = {
-  input: UpdateGameInput,
+export type UpdateGameItemMutationVariables = {
+  input: UpdateGameItemInput,
 };
 
-export type UpdateGameMutation = {
-  updateGame:  {
-    __typename: "Game",
+export type UpdateGameItemMutation = {
+  updateGameItem:  {
+    __typename: "GameItem",
     id: string,
     name: string | null,
-    popularity: number | null,
-    url: string | null,
-    summary: string | null,
-    cover:  {
-      __typename: "Image",
-      id: string,
-      url: string | null,
-      width: number | null,
-      height: number | null,
-      cloudinary_id: string | null,
-    } | null,
+    likes: number | null,
+    rating: number | null,
     reviews:  {
       __typename: "ModelReviewConnection",
       items:  Array< {
         __typename: "Review",
-        likes: number | null,
-        views: number | null,
+        id: string,
+        score: number | null,
         content: string | null,
-        id: string | null,
-        introduction: string | null,
+        reviewGameId: string | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
-    achievements:  {
-      __typename: "ModelAchievementConnection",
+    notes:  {
+      __typename: "ModelNoteConnection",
       items:  Array< {
-        __typename: "Achievement",
+        __typename: "Note",
         id: string,
-        name: string | null,
-        description: string | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
-    platforms:  {
-      __typename: "ModelPlatformConnection",
-      items:  Array< {
-        __typename: "Platform",
-        id: string,
-        name: string | null,
-        url: string | null,
+        entryDate: string | null,
+        comment: string | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
   } | null,
 };
 
-export type DeleteGameMutationVariables = {
-  input: DeleteGameInput,
+export type DeleteGameItemMutationVariables = {
+  input: DeleteGameItemInput,
 };
 
-export type DeleteGameMutation = {
-  deleteGame:  {
-    __typename: "Game",
+export type DeleteGameItemMutation = {
+  deleteGameItem:  {
+    __typename: "GameItem",
     id: string,
     name: string | null,
-    popularity: number | null,
-    url: string | null,
-    summary: string | null,
-    cover:  {
-      __typename: "Image",
-      id: string,
-      url: string | null,
-      width: number | null,
-      height: number | null,
-      cloudinary_id: string | null,
-    } | null,
+    likes: number | null,
+    rating: number | null,
     reviews:  {
       __typename: "ModelReviewConnection",
       items:  Array< {
         __typename: "Review",
-        likes: number | null,
-        views: number | null,
+        id: string,
+        score: number | null,
         content: string | null,
-        id: string | null,
-        introduction: string | null,
+        reviewGameId: string | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
-    achievements:  {
-      __typename: "ModelAchievementConnection",
+    notes:  {
+      __typename: "ModelNoteConnection",
       items:  Array< {
-        __typename: "Achievement",
+        __typename: "Note",
         id: string,
-        name: string | null,
-        description: string | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
-    platforms:  {
-      __typename: "ModelPlatformConnection",
-      items:  Array< {
-        __typename: "Platform",
-        id: string,
-        name: string | null,
-        url: string | null,
+        entryDate: string | null,
+        comment: string | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
   } | null,
 };
 
-export type CreatePlatformMutationVariables = {
-  input: CreatePlatformInput,
+export type CreateNoteMutationVariables = {
+  input: CreateNoteInput,
 };
 
-export type CreatePlatformMutation = {
-  createPlatform:  {
-    __typename: "Platform",
+export type CreateNoteMutation = {
+  createNote:  {
+    __typename: "Note",
     id: string,
-    name: string | null,
-    url: string | null,
+    entryDate: string | null,
+    comment: string | null,
   } | null,
 };
 
-export type UpdatePlatformMutationVariables = {
-  input: UpdatePlatformInput,
+export type UpdateNoteMutationVariables = {
+  input: UpdateNoteInput,
 };
 
-export type UpdatePlatformMutation = {
-  updatePlatform:  {
-    __typename: "Platform",
+export type UpdateNoteMutation = {
+  updateNote:  {
+    __typename: "Note",
     id: string,
-    name: string | null,
-    url: string | null,
+    entryDate: string | null,
+    comment: string | null,
   } | null,
 };
 
-export type DeletePlatformMutationVariables = {
-  input: DeletePlatformInput,
+export type DeleteNoteMutationVariables = {
+  input: DeleteNoteInput,
 };
 
-export type DeletePlatformMutation = {
-  deletePlatform:  {
-    __typename: "Platform",
+export type DeleteNoteMutation = {
+  deleteNote:  {
+    __typename: "Note",
     id: string,
-    name: string | null,
-    url: string | null,
+    entryDate: string | null,
+    comment: string | null,
   } | null,
 };
 
@@ -456,11 +273,25 @@ export type CreateReviewMutationVariables = {
 export type CreateReviewMutation = {
   createReview:  {
     __typename: "Review",
-    likes: number | null,
-    views: number | null,
+    id: string,
+    score: number | null,
     content: string | null,
-    id: string | null,
-    introduction: string | null,
+    game:  {
+      __typename: "GameItem",
+      id: string,
+      name: string | null,
+      likes: number | null,
+      rating: number | null,
+      reviews:  {
+        __typename: "ModelReviewConnection",
+        nextToken: string | null,
+      } | null,
+      notes:  {
+        __typename: "ModelNoteConnection",
+        nextToken: string | null,
+      } | null,
+    } | null,
+    reviewGameId: string | null,
   } | null,
 };
 
@@ -471,11 +302,25 @@ export type UpdateReviewMutationVariables = {
 export type UpdateReviewMutation = {
   updateReview:  {
     __typename: "Review",
-    likes: number | null,
-    views: number | null,
+    id: string,
+    score: number | null,
     content: string | null,
-    id: string | null,
-    introduction: string | null,
+    game:  {
+      __typename: "GameItem",
+      id: string,
+      name: string | null,
+      likes: number | null,
+      rating: number | null,
+      reviews:  {
+        __typename: "ModelReviewConnection",
+        nextToken: string | null,
+      } | null,
+      notes:  {
+        __typename: "ModelNoteConnection",
+        nextToken: string | null,
+      } | null,
+    } | null,
+    reviewGameId: string | null,
   } | null,
 };
 
@@ -486,50 +331,25 @@ export type DeleteReviewMutationVariables = {
 export type DeleteReviewMutation = {
   deleteReview:  {
     __typename: "Review",
-    likes: number | null,
-    views: number | null,
+    id: string,
+    score: number | null,
     content: string | null,
-    id: string | null,
-    introduction: string | null,
-  } | null,
-};
-
-export type CreateAchievementMutationVariables = {
-  input: CreateAchievementInput,
-};
-
-export type CreateAchievementMutation = {
-  createAchievement:  {
-    __typename: "Achievement",
-    id: string,
-    name: string | null,
-    description: string | null,
-  } | null,
-};
-
-export type UpdateAchievementMutationVariables = {
-  input: UpdateAchievementInput,
-};
-
-export type UpdateAchievementMutation = {
-  updateAchievement:  {
-    __typename: "Achievement",
-    id: string,
-    name: string | null,
-    description: string | null,
-  } | null,
-};
-
-export type DeleteAchievementMutationVariables = {
-  input: DeleteAchievementInput,
-};
-
-export type DeleteAchievementMutation = {
-  deleteAchievement:  {
-    __typename: "Achievement",
-    id: string,
-    name: string | null,
-    description: string | null,
+    game:  {
+      __typename: "GameItem",
+      id: string,
+      name: string | null,
+      likes: number | null,
+      rating: number | null,
+      reviews:  {
+        __typename: "ModelReviewConnection",
+        nextToken: string | null,
+      } | null,
+      notes:  {
+        __typename: "ModelNoteConnection",
+        nextToken: string | null,
+      } | null,
+    } | null,
+    reviewGameId: string | null,
   } | null,
 };
 
@@ -543,172 +363,71 @@ export type PopularGamesQuery = {
     summary: string | null,
     cover:  {
       __typename: "Image",
-      id: string,
+      id: string | null,
       url: string | null,
       width: number | null,
       height: number | null,
       cloudinary_id: string | null,
-    } | null,
-    reviews:  {
-      __typename: "ModelReviewConnection",
-      items:  Array< {
-        __typename: "Review",
-        likes: number | null,
-        views: number | null,
-        content: string | null,
-        id: string | null,
-        introduction: string | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
-    achievements:  {
-      __typename: "ModelAchievementConnection",
-      items:  Array< {
-        __typename: "Achievement",
-        id: string,
-        name: string | null,
-        description: string | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
-    platforms:  {
-      __typename: "ModelPlatformConnection",
-      items:  Array< {
-        __typename: "Platform",
-        id: string,
-        name: string | null,
-        url: string | null,
-      } | null > | null,
-      nextToken: string | null,
     } | null,
   } > | null,
 };
 
-export type GetImageQueryVariables = {
+export type GetGameItemQueryVariables = {
   id: string,
 };
 
-export type GetImageQuery = {
-  getImage:  {
-    __typename: "Image",
-    id: string,
-    url: string | null,
-    width: number | null,
-    height: number | null,
-    cloudinary_id: string | null,
-  } | null,
-};
-
-export type ListImagesQueryVariables = {
-  filter?: ModelImageFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListImagesQuery = {
-  listImages:  {
-    __typename: "ModelImageConnection",
-    items:  Array< {
-      __typename: "Image",
-      id: string,
-      url: string | null,
-      width: number | null,
-      height: number | null,
-      cloudinary_id: string | null,
-    } | null > | null,
-    nextToken: string | null,
-  } | null,
-};
-
-export type GetGameQueryVariables = {
-  id: string,
-};
-
-export type GetGameQuery = {
-  getGame:  {
-    __typename: "Game",
+export type GetGameItemQuery = {
+  getGameItem:  {
+    __typename: "GameItem",
     id: string,
     name: string | null,
-    popularity: number | null,
-    url: string | null,
-    summary: string | null,
-    cover:  {
-      __typename: "Image",
-      id: string,
-      url: string | null,
-      width: number | null,
-      height: number | null,
-      cloudinary_id: string | null,
-    } | null,
+    likes: number | null,
+    rating: number | null,
     reviews:  {
       __typename: "ModelReviewConnection",
       items:  Array< {
         __typename: "Review",
-        likes: number | null,
-        views: number | null,
+        id: string,
+        score: number | null,
         content: string | null,
-        id: string | null,
-        introduction: string | null,
+        reviewGameId: string | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
-    achievements:  {
-      __typename: "ModelAchievementConnection",
+    notes:  {
+      __typename: "ModelNoteConnection",
       items:  Array< {
-        __typename: "Achievement",
+        __typename: "Note",
         id: string,
-        name: string | null,
-        description: string | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
-    platforms:  {
-      __typename: "ModelPlatformConnection",
-      items:  Array< {
-        __typename: "Platform",
-        id: string,
-        name: string | null,
-        url: string | null,
+        entryDate: string | null,
+        comment: string | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
   } | null,
 };
 
-export type ListGamesQueryVariables = {
-  filter?: ModelGameFilterInput | null,
+export type ListGameItemsQueryVariables = {
+  filter?: ModelGameItemFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListGamesQuery = {
-  listGames:  {
-    __typename: "ModelGameConnection",
+export type ListGameItemsQuery = {
+  listGameItems:  {
+    __typename: "ModelGameItemConnection",
     items:  Array< {
-      __typename: "Game",
+      __typename: "GameItem",
       id: string,
       name: string | null,
-      popularity: number | null,
-      url: string | null,
-      summary: string | null,
-      cover:  {
-        __typename: "Image",
-        id: string,
-        url: string | null,
-        width: number | null,
-        height: number | null,
-        cloudinary_id: string | null,
-      } | null,
+      likes: number | null,
+      rating: number | null,
       reviews:  {
         __typename: "ModelReviewConnection",
         nextToken: string | null,
       } | null,
-      achievements:  {
-        __typename: "ModelAchievementConnection",
-        nextToken: string | null,
-      } | null,
-      platforms:  {
-        __typename: "ModelPlatformConnection",
+      notes:  {
+        __typename: "ModelNoteConnection",
         nextToken: string | null,
       } | null,
     } | null > | null,
@@ -716,33 +435,33 @@ export type ListGamesQuery = {
   } | null,
 };
 
-export type GetPlatformQueryVariables = {
+export type GetNoteQueryVariables = {
   id: string,
 };
 
-export type GetPlatformQuery = {
-  getPlatform:  {
-    __typename: "Platform",
+export type GetNoteQuery = {
+  getNote:  {
+    __typename: "Note",
     id: string,
-    name: string | null,
-    url: string | null,
+    entryDate: string | null,
+    comment: string | null,
   } | null,
 };
 
-export type ListPlatformsQueryVariables = {
-  filter?: ModelPlatformFilterInput | null,
+export type ListNotesQueryVariables = {
+  filter?: ModelNoteFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListPlatformsQuery = {
-  listPlatforms:  {
-    __typename: "ModelPlatformConnection",
+export type ListNotesQuery = {
+  listNotes:  {
+    __typename: "ModelNoteConnection",
     items:  Array< {
-      __typename: "Platform",
+      __typename: "Note",
       id: string,
-      name: string | null,
-      url: string | null,
+      entryDate: string | null,
+      comment: string | null,
     } | null > | null,
     nextToken: string | null,
   } | null,
@@ -755,11 +474,25 @@ export type GetReviewQueryVariables = {
 export type GetReviewQuery = {
   getReview:  {
     __typename: "Review",
-    likes: number | null,
-    views: number | null,
+    id: string,
+    score: number | null,
     content: string | null,
-    id: string | null,
-    introduction: string | null,
+    game:  {
+      __typename: "GameItem",
+      id: string,
+      name: string | null,
+      likes: number | null,
+      rating: number | null,
+      reviews:  {
+        __typename: "ModelReviewConnection",
+        nextToken: string | null,
+      } | null,
+      notes:  {
+        __typename: "ModelNoteConnection",
+        nextToken: string | null,
+      } | null,
+    } | null,
+    reviewGameId: string | null,
   } | null,
 };
 
@@ -774,317 +507,213 @@ export type ListReviewsQuery = {
     __typename: "ModelReviewConnection",
     items:  Array< {
       __typename: "Review",
-      likes: number | null,
-      views: number | null,
+      id: string,
+      score: number | null,
       content: string | null,
-      id: string | null,
-      introduction: string | null,
+      game:  {
+        __typename: "GameItem",
+        id: string,
+        name: string | null,
+        likes: number | null,
+        rating: number | null,
+      } | null,
+      reviewGameId: string | null,
     } | null > | null,
     nextToken: string | null,
   } | null,
 };
 
-export type GetAchievementQueryVariables = {
-  id: string,
-};
-
-export type GetAchievementQuery = {
-  getAchievement:  {
-    __typename: "Achievement",
+export type OnCreateGameItemSubscription = {
+  onCreateGameItem:  {
+    __typename: "GameItem",
     id: string,
     name: string | null,
-    description: string | null,
-  } | null,
-};
-
-export type ListAchievementsQueryVariables = {
-  filter?: ModelAchievementFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListAchievementsQuery = {
-  listAchievements:  {
-    __typename: "ModelAchievementConnection",
-    items:  Array< {
-      __typename: "Achievement",
-      id: string,
-      name: string | null,
-      description: string | null,
-    } | null > | null,
-    nextToken: string | null,
-  } | null,
-};
-
-export type OnCreateImageSubscription = {
-  onCreateImage:  {
-    __typename: "Image",
-    id: string,
-    url: string | null,
-    width: number | null,
-    height: number | null,
-    cloudinary_id: string | null,
-  } | null,
-};
-
-export type OnUpdateImageSubscription = {
-  onUpdateImage:  {
-    __typename: "Image",
-    id: string,
-    url: string | null,
-    width: number | null,
-    height: number | null,
-    cloudinary_id: string | null,
-  } | null,
-};
-
-export type OnDeleteImageSubscription = {
-  onDeleteImage:  {
-    __typename: "Image",
-    id: string,
-    url: string | null,
-    width: number | null,
-    height: number | null,
-    cloudinary_id: string | null,
-  } | null,
-};
-
-export type OnCreateGameSubscription = {
-  onCreateGame:  {
-    __typename: "Game",
-    id: string,
-    name: string | null,
-    popularity: number | null,
-    url: string | null,
-    summary: string | null,
-    cover:  {
-      __typename: "Image",
-      id: string,
-      url: string | null,
-      width: number | null,
-      height: number | null,
-      cloudinary_id: string | null,
-    } | null,
+    likes: number | null,
+    rating: number | null,
     reviews:  {
       __typename: "ModelReviewConnection",
       items:  Array< {
         __typename: "Review",
-        likes: number | null,
-        views: number | null,
+        id: string,
+        score: number | null,
         content: string | null,
-        id: string | null,
-        introduction: string | null,
+        reviewGameId: string | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
-    achievements:  {
-      __typename: "ModelAchievementConnection",
+    notes:  {
+      __typename: "ModelNoteConnection",
       items:  Array< {
-        __typename: "Achievement",
+        __typename: "Note",
         id: string,
-        name: string | null,
-        description: string | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
-    platforms:  {
-      __typename: "ModelPlatformConnection",
-      items:  Array< {
-        __typename: "Platform",
-        id: string,
-        name: string | null,
-        url: string | null,
+        entryDate: string | null,
+        comment: string | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
   } | null,
 };
 
-export type OnUpdateGameSubscription = {
-  onUpdateGame:  {
-    __typename: "Game",
+export type OnUpdateGameItemSubscription = {
+  onUpdateGameItem:  {
+    __typename: "GameItem",
     id: string,
     name: string | null,
-    popularity: number | null,
-    url: string | null,
-    summary: string | null,
-    cover:  {
-      __typename: "Image",
-      id: string,
-      url: string | null,
-      width: number | null,
-      height: number | null,
-      cloudinary_id: string | null,
-    } | null,
+    likes: number | null,
+    rating: number | null,
     reviews:  {
       __typename: "ModelReviewConnection",
       items:  Array< {
         __typename: "Review",
-        likes: number | null,
-        views: number | null,
+        id: string,
+        score: number | null,
         content: string | null,
-        id: string | null,
-        introduction: string | null,
+        reviewGameId: string | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
-    achievements:  {
-      __typename: "ModelAchievementConnection",
+    notes:  {
+      __typename: "ModelNoteConnection",
       items:  Array< {
-        __typename: "Achievement",
+        __typename: "Note",
         id: string,
-        name: string | null,
-        description: string | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
-    platforms:  {
-      __typename: "ModelPlatformConnection",
-      items:  Array< {
-        __typename: "Platform",
-        id: string,
-        name: string | null,
-        url: string | null,
+        entryDate: string | null,
+        comment: string | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
   } | null,
 };
 
-export type OnDeleteGameSubscription = {
-  onDeleteGame:  {
-    __typename: "Game",
+export type OnDeleteGameItemSubscription = {
+  onDeleteGameItem:  {
+    __typename: "GameItem",
     id: string,
     name: string | null,
-    popularity: number | null,
-    url: string | null,
-    summary: string | null,
-    cover:  {
-      __typename: "Image",
-      id: string,
-      url: string | null,
-      width: number | null,
-      height: number | null,
-      cloudinary_id: string | null,
-    } | null,
+    likes: number | null,
+    rating: number | null,
     reviews:  {
       __typename: "ModelReviewConnection",
       items:  Array< {
         __typename: "Review",
-        likes: number | null,
-        views: number | null,
+        id: string,
+        score: number | null,
         content: string | null,
-        id: string | null,
-        introduction: string | null,
+        reviewGameId: string | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
-    achievements:  {
-      __typename: "ModelAchievementConnection",
+    notes:  {
+      __typename: "ModelNoteConnection",
       items:  Array< {
-        __typename: "Achievement",
+        __typename: "Note",
         id: string,
-        name: string | null,
-        description: string | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
-    platforms:  {
-      __typename: "ModelPlatformConnection",
-      items:  Array< {
-        __typename: "Platform",
-        id: string,
-        name: string | null,
-        url: string | null,
+        entryDate: string | null,
+        comment: string | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
   } | null,
 };
 
-export type OnCreatePlatformSubscription = {
-  onCreatePlatform:  {
-    __typename: "Platform",
+export type OnCreateNoteSubscription = {
+  onCreateNote:  {
+    __typename: "Note",
     id: string,
-    name: string | null,
-    url: string | null,
+    entryDate: string | null,
+    comment: string | null,
   } | null,
 };
 
-export type OnUpdatePlatformSubscription = {
-  onUpdatePlatform:  {
-    __typename: "Platform",
+export type OnUpdateNoteSubscription = {
+  onUpdateNote:  {
+    __typename: "Note",
     id: string,
-    name: string | null,
-    url: string | null,
+    entryDate: string | null,
+    comment: string | null,
   } | null,
 };
 
-export type OnDeletePlatformSubscription = {
-  onDeletePlatform:  {
-    __typename: "Platform",
+export type OnDeleteNoteSubscription = {
+  onDeleteNote:  {
+    __typename: "Note",
     id: string,
-    name: string | null,
-    url: string | null,
+    entryDate: string | null,
+    comment: string | null,
   } | null,
 };
 
 export type OnCreateReviewSubscription = {
   onCreateReview:  {
     __typename: "Review",
-    likes: number | null,
-    views: number | null,
+    id: string,
+    score: number | null,
     content: string | null,
-    id: string | null,
-    introduction: string | null,
+    game:  {
+      __typename: "GameItem",
+      id: string,
+      name: string | null,
+      likes: number | null,
+      rating: number | null,
+      reviews:  {
+        __typename: "ModelReviewConnection",
+        nextToken: string | null,
+      } | null,
+      notes:  {
+        __typename: "ModelNoteConnection",
+        nextToken: string | null,
+      } | null,
+    } | null,
+    reviewGameId: string | null,
   } | null,
 };
 
 export type OnUpdateReviewSubscription = {
   onUpdateReview:  {
     __typename: "Review",
-    likes: number | null,
-    views: number | null,
+    id: string,
+    score: number | null,
     content: string | null,
-    id: string | null,
-    introduction: string | null,
+    game:  {
+      __typename: "GameItem",
+      id: string,
+      name: string | null,
+      likes: number | null,
+      rating: number | null,
+      reviews:  {
+        __typename: "ModelReviewConnection",
+        nextToken: string | null,
+      } | null,
+      notes:  {
+        __typename: "ModelNoteConnection",
+        nextToken: string | null,
+      } | null,
+    } | null,
+    reviewGameId: string | null,
   } | null,
 };
 
 export type OnDeleteReviewSubscription = {
   onDeleteReview:  {
     __typename: "Review",
-    likes: number | null,
-    views: number | null,
+    id: string,
+    score: number | null,
     content: string | null,
-    id: string | null,
-    introduction: string | null,
-  } | null,
-};
-
-export type OnCreateAchievementSubscription = {
-  onCreateAchievement:  {
-    __typename: "Achievement",
-    id: string,
-    name: string | null,
-    description: string | null,
-  } | null,
-};
-
-export type OnUpdateAchievementSubscription = {
-  onUpdateAchievement:  {
-    __typename: "Achievement",
-    id: string,
-    name: string | null,
-    description: string | null,
-  } | null,
-};
-
-export type OnDeleteAchievementSubscription = {
-  onDeleteAchievement:  {
-    __typename: "Achievement",
-    id: string,
-    name: string | null,
-    description: string | null,
+    game:  {
+      __typename: "GameItem",
+      id: string,
+      name: string | null,
+      likes: number | null,
+      rating: number | null,
+      reviews:  {
+        __typename: "ModelReviewConnection",
+        nextToken: string | null,
+      } | null,
+      notes:  {
+        __typename: "ModelNoteConnection",
+        nextToken: string | null,
+      } | null,
+    } | null,
+    reviewGameId: string | null,
   } | null,
 };

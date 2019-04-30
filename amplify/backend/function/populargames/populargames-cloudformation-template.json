@@ -60,7 +60,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "games-amplify-ts-20190306195343-deployment",
-					"S3Key": "amplify-builds/populargames-1554089023-latest-build.zip"
+					"S3Key": "amplify-builds/populargames-1556591555-latest-build.zip"
 				}
 			}
 		},

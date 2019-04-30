@@ -1,240 +1,168 @@
 // tslint:disable
 // this is an auto generated file. This will be overwritten
 
-export const createImage = `mutation CreateImage($input: CreateImageInput!) {
-  createImage(input: $input) {
-    id
-    url
-    width
-    height
-    cloudinary_id
-  }
-}
-`;
-export const updateImage = `mutation UpdateImage($input: UpdateImageInput!) {
-  updateImage(input: $input) {
-    id
-    url
-    width
-    height
-    cloudinary_id
-  }
-}
-`;
-export const deleteImage = `mutation DeleteImage($input: DeleteImageInput!) {
-  deleteImage(input: $input) {
-    id
-    url
-    width
-    height
-    cloudinary_id
-  }
-}
-`;
-export const createGame = `mutation CreateGame($input: CreateGameInput!) {
-  createGame(input: $input) {
+export const createGameItem = `mutation CreateGameItem($input: CreateGameItemInput!) {
+  createGameItem(input: $input) {
     id
     name
-    popularity
-    url
-    summary
-    cover {
-      id
-      url
-      width
-      height
-      cloudinary_id
-    }
+    likes
+    rating
     reviews {
       items {
-        likes
-        views
+        id
+        score
         content
-        id
-        introduction
+        reviewGameId
       }
       nextToken
     }
-    achievements {
+    notes {
       items {
         id
-        name
-        description
-      }
-      nextToken
-    }
-    platforms {
-      items {
-        id
-        name
-        url
+        entryDate
+        comment
       }
       nextToken
     }
   }
 }
 `;
-export const updateGame = `mutation UpdateGame($input: UpdateGameInput!) {
-  updateGame(input: $input) {
+export const updateGameItem = `mutation UpdateGameItem($input: UpdateGameItemInput!) {
+  updateGameItem(input: $input) {
     id
     name
-    popularity
-    url
-    summary
-    cover {
-      id
-      url
-      width
-      height
-      cloudinary_id
-    }
+    likes
+    rating
     reviews {
       items {
-        likes
-        views
+        id
+        score
         content
-        id
-        introduction
+        reviewGameId
       }
       nextToken
     }
-    achievements {
+    notes {
       items {
         id
-        name
-        description
-      }
-      nextToken
-    }
-    platforms {
-      items {
-        id
-        name
-        url
+        entryDate
+        comment
       }
       nextToken
     }
   }
 }
 `;
-export const deleteGame = `mutation DeleteGame($input: DeleteGameInput!) {
-  deleteGame(input: $input) {
+export const deleteGameItem = `mutation DeleteGameItem($input: DeleteGameItemInput!) {
+  deleteGameItem(input: $input) {
     id
     name
-    popularity
-    url
-    summary
-    cover {
-      id
-      url
-      width
-      height
-      cloudinary_id
-    }
+    likes
+    rating
     reviews {
       items {
-        likes
-        views
+        id
+        score
         content
-        id
-        introduction
+        reviewGameId
       }
       nextToken
     }
-    achievements {
+    notes {
       items {
         id
-        name
-        description
-      }
-      nextToken
-    }
-    platforms {
-      items {
-        id
-        name
-        url
+        entryDate
+        comment
       }
       nextToken
     }
   }
 }
 `;
-export const createPlatform = `mutation CreatePlatform($input: CreatePlatformInput!) {
-  createPlatform(input: $input) {
+export const createNote = `mutation CreateNote($input: CreateNoteInput!) {
+  createNote(input: $input) {
     id
-    name
-    url
+    entryDate
+    comment
   }
 }
 `;
-export const updatePlatform = `mutation UpdatePlatform($input: UpdatePlatformInput!) {
-  updatePlatform(input: $input) {
+export const updateNote = `mutation UpdateNote($input: UpdateNoteInput!) {
+  updateNote(input: $input) {
     id
-    name
-    url
+    entryDate
+    comment
   }
 }
 `;
-export const deletePlatform = `mutation DeletePlatform($input: DeletePlatformInput!) {
-  deletePlatform(input: $input) {
+export const deleteNote = `mutation DeleteNote($input: DeleteNoteInput!) {
+  deleteNote(input: $input) {
     id
-    name
-    url
+    entryDate
+    comment
   }
 }
 `;
 export const createReview = `mutation CreateReview($input: CreateReviewInput!) {
   createReview(input: $input) {
-    likes
-    views
-    content
     id
-    introduction
+    score
+    content
+    game {
+      id
+      name
+      likes
+      rating
+      reviews {
+        nextToken
+      }
+      notes {
+        nextToken
+      }
+    }
+    reviewGameId
   }
 }
 `;
 export const updateReview = `mutation UpdateReview($input: UpdateReviewInput!) {
   updateReview(input: $input) {
-    likes
-    views
-    content
     id
-    introduction
+    score
+    content
+    game {
+      id
+      name
+      likes
+      rating
+      reviews {
+        nextToken
+      }
+      notes {
+        nextToken
+      }
+    }
+    reviewGameId
   }
 }
 `;
 export const deleteReview = `mutation DeleteReview($input: DeleteReviewInput!) {
   deleteReview(input: $input) {
-    likes
-    views
+    id
+    score
     content
-    id
-    introduction
-  }
-}
-`;
-export const createAchievement = `mutation CreateAchievement($input: CreateAchievementInput!) {
-  createAchievement(input: $input) {
-    id
-    name
-    description
-  }
-}
-`;
-export const updateAchievement = `mutation UpdateAchievement($input: UpdateAchievementInput!) {
-  updateAchievement(input: $input) {
-    id
-    name
-    description
-  }
-}
-`;
-export const deleteAchievement = `mutation DeleteAchievement($input: DeleteAchievementInput!) {
-  deleteAchievement(input: $input) {
-    id
-    name
-    description
+    game {
+      id
+      name
+      likes
+      rating
+      reviews {
+        nextToken
+      }
+      notes {
+        nextToken
+      }
+    }
+    reviewGameId
   }
 }
 `;

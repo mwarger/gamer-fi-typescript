@@ -15,131 +15,50 @@ export const popularGames = `query PopularGames {
       height
       cloudinary_id
     }
-    reviews {
-      items {
-        likes
-        views
-        content
-        id
-        introduction
-      }
-      nextToken
-    }
-    achievements {
-      items {
-        id
-        name
-        description
-      }
-      nextToken
-    }
-    platforms {
-      items {
-        id
-        name
-        url
-      }
-      nextToken
-    }
   }
 }
 `;
-export const getImage = `query GetImage($id: ID!) {
-  getImage(id: $id) {
-    id
-    url
-    width
-    height
-    cloudinary_id
-  }
-}
-`;
-export const listImages = `query ListImages(
-  $filter: ModelImageFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listImages(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      url
-      width
-      height
-      cloudinary_id
-    }
-    nextToken
-  }
-}
-`;
-export const getGame = `query GetGame($id: ID!) {
-  getGame(id: $id) {
+export const getGameItem = `query GetGameItem($id: ID!) {
+  getGameItem(id: $id) {
     id
     name
-    popularity
-    url
-    summary
-    cover {
-      id
-      url
-      width
-      height
-      cloudinary_id
-    }
+    likes
+    rating
     reviews {
       items {
-        likes
-        views
+        id
+        score
         content
-        id
-        introduction
+        reviewGameId
       }
       nextToken
     }
-    achievements {
+    notes {
       items {
         id
-        name
-        description
-      }
-      nextToken
-    }
-    platforms {
-      items {
-        id
-        name
-        url
+        entryDate
+        comment
       }
       nextToken
     }
   }
 }
 `;
-export const listGames = `query ListGames(
-  $filter: ModelGameFilterInput
+export const listGameItems = `query ListGameItems(
+  $filter: ModelGameItemFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  listGames(filter: $filter, limit: $limit, nextToken: $nextToken) {
+  listGameItems(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
       name
-      popularity
-      url
-      summary
-      cover {
-        id
-        url
-        width
-        height
-        cloudinary_id
-      }
+      likes
+      rating
       reviews {
         nextToken
       }
-      achievements {
-        nextToken
-      }
-      platforms {
+      notes {
         nextToken
       }
     }
@@ -147,24 +66,24 @@ export const listGames = `query ListGames(
   }
 }
 `;
-export const getPlatform = `query GetPlatform($id: ID!) {
-  getPlatform(id: $id) {
+export const getNote = `query GetNote($id: ID!) {
+  getNote(id: $id) {
     id
-    name
-    url
+    entryDate
+    comment
   }
 }
 `;
-export const listPlatforms = `query ListPlatforms(
-  $filter: ModelPlatformFilterInput
+export const listNotes = `query ListNotes(
+  $filter: ModelNoteFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  listPlatforms(filter: $filter, limit: $limit, nextToken: $nextToken) {
+  listNotes(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
-      name
-      url
+      entryDate
+      comment
     }
     nextToken
   }
@@ -172,11 +91,22 @@ export const listPlatforms = `query ListPlatforms(
 `;
 export const getReview = `query GetReview($id: ID!) {
   getReview(id: $id) {
-    likes
-    views
-    content
     id
-    introduction
+    score
+    content
+    game {
+      id
+      name
+      likes
+      rating
+      reviews {
+        nextToken
+      }
+      notes {
+        nextToken
+      }
+    }
+    reviewGameId
   }
 }
 `;
@@ -187,34 +117,16 @@ export const listReviews = `query ListReviews(
 ) {
   listReviews(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
-      likes
-      views
+      id
+      score
       content
-      id
-      introduction
-    }
-    nextToken
-  }
-}
-`;
-export const getAchievement = `query GetAchievement($id: ID!) {
-  getAchievement(id: $id) {
-    id
-    name
-    description
-  }
-}
-`;
-export const listAchievements = `query ListAchievements(
-  $filter: ModelAchievementFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listAchievements(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      name
-      description
+      game {
+        id
+        name
+        likes
+        rating
+      }
+      reviewGameId
     }
     nextToken
   }

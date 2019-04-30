@@ -10,12 +10,11 @@ import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import { PopularGames } from "./PopularGames";
-import { Router, Link as RouterLink } from "@reach/router";
-import Link from "@material-ui/core/Link";
+import PopularGames from "./components/PopularGames";
+import { Router, Link } from "@reach/router";
 import NavItemLink from "./NavItemLink";
+import MyGames from "./components/MyGames";
+import Reviews from "./components/Reviews";
 
 const drawerWidth = 240;
 
@@ -127,7 +126,7 @@ function PersistentDrawerLeft() {
         <Divider />
         <List>
           <NavItemLink to="games" label="My Games" />
-          <NavItemLink to="reviews" label="Reviews" />
+          {/* <NavItemLink to="reviews" label="Reviews" /> */}
           <NavItemLink to="popular-games" label="Popular Games" />
         </List>
       </Drawer>
@@ -138,6 +137,8 @@ function PersistentDrawerLeft() {
       >
         <div className={classes.drawerHeader} />
         <Router>
+          <MyGames path="games" />
+          <Reviews path="reviews/:id" />
           <PopularGames path="popular-games" />
         </Router>
       </main>

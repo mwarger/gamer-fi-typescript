@@ -1,43 +1,86 @@
-type Image @model {
-  id: ID!
+type Image {
+  id: ID
   url: String
   width: Int
   height: Int
   cloudinary_id: String
 }
 
-type Game @model {
+type Game {
   id: ID!
   name: String
   popularity: Float
   url: String
   summary: String
   cover: Image
-  reviews: [Review!] @connection
-  achievements: [Achievement!] @connection
-  platforms: [Platform!] @connection
 }
 
-type Platform @model {
+type GameItem @model {
   id: ID!
   name: String
-  url: String
+  likes: Int
+  rating: Int
+  reviews: [Review] @connection(name: "GameReviews")
+  notes: [Note] @connection
+}
+
+type Note @model {
+  id: ID!
+  entryDate: AWSDateTime
+  comment: String
 }
 
 type Review @model {
-  likes: Int
-  views: Int
-  content: String
-  id: ID
-  introduction: String
-}
-
-type Achievement @model {
   id: ID!
-  name: String
-  description: String
+  score: Int
+  content: String
+  game: GameItem @connection(name: "GameReviews", keyField: "reviewGameId")
+  reviewGameId: ID
 }
 
 type Query {
   popularGames: [Game!]
 }
+
+# type Image {
+#   id: ID!
+#   url: String
+#   width: Int
+#   height: Int
+#   cloudinary_id: String
+# }
+
+# type GameResult {
+#   id: ID!
+#   name: String
+#   popularity: Float
+#   url: String
+#   summary: String
+#   cover: Image
+# }
+
+# type Game @model {
+#   id: ID!
+#   name: String
+#   likes: Int
+#   rating: Int
+#   reviews: [Review] @connection(name: "GameReviews")
+#   notes: [Note] @connection
+# }
+
+# type Note @model {
+#   id: ID!
+#   entryDate: AWSDateTime
+#   comment: String
+# }
+
+# type Review @model {
+#   id: ID!
+#   score: Int
+#   content: String
+#   game: Game @connection(name: "GameReviews")
+# }
+
+# type Query {
+#   popularGames: [GameResult!]
+# }
