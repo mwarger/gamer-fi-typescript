@@ -6,6 +6,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/styles";
+import { gameFragment } from "../API";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -25,25 +26,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-// DISCUSS: type generation
-type GameType = {
-  __typename: "Game";
-  id: string;
-  name: string | null;
-  popularity: number | null;
-  url: string | null;
-  summary: string | null;
-  cover: {
-    __typename: "Image";
-    id: string | null;
-    url: string | null;
-    width: number | null;
-    height: number | null;
-    cloudinary_id: string | null;
-  } | null;
-};
-
-export const GameCard: React.FC<{ game: GameType }> = ({ game }) => {
+export const GameCard: React.FC<{ game: gameFragment }> = ({ game }) => {
   const classes = useStyles();
   return game && game.name ? (
     <Card className={classes.card}>

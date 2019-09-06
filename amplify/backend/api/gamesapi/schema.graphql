@@ -19,15 +19,8 @@ type GameItem @model {
   id: ID!
   name: String
   likes: Int
-  rating: Int
   reviews: [Review] @connection(name: "GameReviews")
   notes: [Note] @connection
-}
-
-type Note @model {
-  id: ID!
-  entryDate: AWSDateTime
-  comment: String
 }
 
 type Review @model {
@@ -36,6 +29,12 @@ type Review @model {
   content: String
   game: GameItem @connection(name: "GameReviews", keyField: "reviewGameId")
   reviewGameId: ID
+}
+
+type Note @model(queries: null) {
+  id: ID!
+  entryDate: AWSDateTime
+  comment: String
 }
 
 type Query {

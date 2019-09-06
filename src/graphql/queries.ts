@@ -23,7 +23,6 @@ export const getGameItem = `query GetGameItem($id: ID!) {
     id
     name
     likes
-    rating
     reviews {
       items {
         id
@@ -54,36 +53,12 @@ export const listGameItems = `query ListGameItems(
       id
       name
       likes
-      rating
       reviews {
         nextToken
       }
       notes {
         nextToken
       }
-    }
-    nextToken
-  }
-}
-`;
-export const getNote = `query GetNote($id: ID!) {
-  getNote(id: $id) {
-    id
-    entryDate
-    comment
-  }
-}
-`;
-export const listNotes = `query ListNotes(
-  $filter: ModelNoteFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listNotes(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      entryDate
-      comment
     }
     nextToken
   }
@@ -98,7 +73,6 @@ export const getReview = `query GetReview($id: ID!) {
       id
       name
       likes
-      rating
       reviews {
         nextToken
       }
@@ -124,7 +98,6 @@ export const listReviews = `query ListReviews(
         id
         name
         likes
-        rating
       }
       reviewGameId
     }

@@ -1,6 +1,11 @@
 import * as React from "react";
 import { API, graphqlOperation } from "aws-amplify";
-import { Observable } from "zen-observable-ts";
+import Spinner from "../components/ui/Spinner";
+import { ErrorBox } from "../containers/auth/ErrorBox";
+import useDeepCompareEffect from "use-deep-compare-effect";
+import { UndefinedGQLType } from "../types/utils";
+import { notEmpty } from "./common";
+import { Observable } from "apollo-link";
 
 export const mutation = async <
   ResultType extends {},
@@ -25,52 +30,62 @@ export const gqlOp = async <
 
 type TODO = any;
 
-// export const QueryResult = <ResultType extends {}>({
-//   render,
-//   loading,
-//   error,
-//   data
-// }: {
-//   loading: boolean;
-//   error: TODO;
-//   data: ResultType;
-//   render: (data: ResultType) => React.ReactNode;
-// }): React.ReactNode => {
-//   return loading ? (
-//     <Spinner />
-//   ) : error ? (
-//     <ErrorBox>{error}</ErrorBox>
-//   ) : data ? (
-//     render(data)
-//   ) : null;
-// };
+export const QueryResult = <ResultType extends {}>({
+  render,
+  loading,
+  error,
+  data,
+}: {
+  loading: boolean;
+  error: TODO;
+  data: ResultType;
+  render: (data: ResultType) => React.ReactNode;
+}): React.ReactNode => {
+  return loading ? (
+    <Spinner />
+  ) : error ? (
+    <ErrorBox>{error}</ErrorBox>
+  ) : data ? (
+    render(data)
+  ) : null;
+};
 
-type UseQueryType<ResultType> = {
+export interface UseQueryType<ResultType> {
   loading: boolean;
   error: TODO;
   data: ResultType;
   refetch: () => void;
+}
+
+export const QueryHandler = <DataType extends {}>({
+  data,
+  loading,
+  error,
+  children,
+  refetch,
+}: {
+  data: DataType;
+  refetch?: () => void;
+  loading: boolean;
+  error: { data: DataType; errors: any[] };
+  children: (data: DataType, refetch?: () => void) => React.ReactNode;
+}) => {
+  if (loading) {
+    return <Spinner />;
+  }
+
+  if (error) {
+    console.log("error", JSON.stringify(error.errors));
+
+    return error.data ? (
+      <>{children(error.data)}</>
+    ) : (
+      <>{JSON.stringify(error.errors)}</>
+    );
+  }
+
+  return <>{children(data, refetch)}</>;
 };
-
-// export const QueryHandler = ({
-//   loading,
-//   error,
-//   children
-// }: {
-//   loading: boolean;
-//   error: any;
-//   children?: React.ReactNode;
-// }) => {
-//   if (loading) {
-//     return <Spinner />;
-//   }
-
-//   if (error) {
-//     return <ErrorBox>{error}</ErrorBox>;
-//   }
-
-//   return <>{children}</>;
-// };
 
 export const useQuery = <ResultType extends {}, VariablesType extends {} = {}>(
   query: string,
@@ -82,11 +97,8 @@ export const useQuery = <ResultType extends {}, VariablesType extends {} = {}>(
 
   const fetchQuery = async (query: string, variables?: VariablesType) => {
     try {
-      const { data } = (await API.graphql(
-        graphqlOperation(query, variables)
-      )) as {
-        data: ResultType;
-      };
+      setLoading(true);
+      const data = await gqlOp<ResultType, VariablesType>(query, variables);
       setData(data);
     } catch (error) {
       console.log(error);
@@ -100,32 +112,184 @@ export const useQuery = <ResultType extends {}, VariablesType extends {} = {}>(
     fetchQuery(query, variables);
   };
 
-  React.useEffect(() => {
+  useDeepCompareEffect(() => {
     fetchQuery(query, variables);
-  }, [query]);
+  }, [query, variables]);
 
   return {
     loading,
     data,
     error,
-    refetch
+    refetch,
   };
+};
+
+export type AmplifyListType<ListItemType> = {
+  [listKey: string]: {
+    __typename: string;
+    items: ListItemType[] | null;
+    nextToken: UndefinedGQLType<string>;
+  } | null;
+};
+
+export interface UseQueryListType<ResultType>
+  extends UseQueryType<ResultType[]> {
+  nextToken: UndefinedGQLType<string>;
+  setToken: (token: string) => void;
+}
+
+export type UseQueryListTypeWithoutRefetch<ResultType> = Omit<
+  UseQueryListType<ResultType>,
+  "refetch"
+>;
+
+export const useQueryList = <
+  ListItemType,
+  ListQueryType extends AmplifyListType<ListItemType | null>,
+  ListVariablesType extends {}
+>(
+  listKey: string,
+  query: string,
+  variables: ListVariablesType
+): UseQueryListTypeWithoutRefetch<ListItemType> => {
+  const [token, setToken] = React.useState<UndefinedGQLType<string>>();
+  const [nextToken, setNextToken] = React.useState<UndefinedGQLType<string>>();
+  const [list, setList] = React.useState<ListItemType[]>([]);
+
+  const { data, loading, error } = useQuery<ListQueryType, ListVariablesType>(
+    query,
+    {
+      ...variables,
+      nextToken: token,
+    }
+  );
+
+  useDeepCompareEffect(() => {
+    setList([]);
+  }, [variables]);
+
+  React.useEffect(() => {
+    const listData = data && data[listKey];
+    setList(list => {
+      let updatedRosters = list;
+      if (listData) {
+        const newList: ListItemType[] | null =
+          listData && listData.items && listData.items.filter(notEmpty);
+        if (newList) {
+          updatedRosters = updatedRosters.concat(newList);
+        }
+        return updatedRosters;
+      }
+      return [];
+    });
+
+    if (listData) {
+      setNextToken(listData.nextToken);
+    }
+  }, [data, listKey]);
+
+  return { data: list, loading, error, nextToken, setToken };
 };
 
 enum ActionType {
   "update",
   "create",
-  "remove"
+  "remove",
 }
 
 type Action<T> = { type: ActionType; payload: T };
+type ConfigType<VariableType extends {}> = {
+  query: string;
+  key: string;
+  variables?: VariableType;
+};
 
-export const useCrudSubscription = <ListItemType extends { id: string }>(
-  listData: ListItemType[],
-  updatedConfig?: { updateQuery: string; updatedObject: string },
-  createdConfig?: { createQuery: string; createdObject: string },
-  deletedConfig?: { deleteQuery: string; deletedObject: string }
-) => {
+export const useSubscription = <
+  ItemType extends { id: string },
+  VariablesType extends {}
+>({
+  config,
+  dispatch,
+  itemData,
+}: {
+  config?: ConfigType<VariablesType>;
+  dispatch?: ({ payload }: { payload: ItemType }) => void;
+  itemData?: ItemType;
+} = {}) => {
+  function reducer(
+    state: { itemData: ItemType | undefined },
+    { type, payload }: Action<ItemType | undefined>
+  ) {
+    switch (type) {
+      case ActionType.update:
+        return { ...state, ...payload };
+      default:
+        throw new Error();
+    }
+  }
+  const [item, localDispatch] = React.useReducer(reducer, { itemData });
+  console.log("itemData", itemData);
+
+  useDeepCompareEffect(() => {
+    if (config) {
+      const { query, key, variables } = config;
+      console.log("setting up", { query, key, variables });
+      const subscription = API.graphql(graphqlOperation(query, variables));
+      if (subscription instanceof Observable) {
+        const sub = subscription.subscribe({
+          next: ({
+            value: {
+              data: { [key]: item },
+            },
+          }: {
+            value: { data: { [key: string]: ItemType } };
+          }) => {
+            try {
+              console.log(`subscription ${config.key}`, item.id);
+
+              dispatch
+                ? dispatch({ payload: item })
+                : localDispatch({ type: ActionType.update, payload: item });
+            } catch (error) {
+              console.error(
+                `${
+                  error.message
+                } - Check the key property: the current value is ${key}`
+              );
+            }
+          },
+          error: error => {
+            console.log("subscription error", error);
+          },
+          complete: () => {
+            console.log("completed subscription", key);
+          },
+        });
+        return () => {
+          sub.unsubscribe();
+        };
+      }
+    }
+    return undefined;
+  }, [{ config }]);
+
+  return [item];
+};
+
+export const useCrudSubscription = <
+  ListItemType extends { id: string },
+  VariableType extends {} = {}
+>({
+  listData,
+  configs,
+}: {
+  listData: ListItemType[];
+  configs: {
+    updatedConfig?: ConfigType<VariableType>;
+    createdConfig?: ConfigType<VariableType>;
+    deletedConfig?: ConfigType<VariableType>;
+  };
+}) => {
   function reducer(
     state: ListItemType[],
     { type, payload }: Action<ListItemType>
@@ -136,158 +300,34 @@ export const useCrudSubscription = <ListItemType extends { id: string }>(
       case ActionType.create:
         return [...state, payload];
       case ActionType.remove:
-        return [...state.filter(item => item.id !== payload.id)];
+        console.log("removing");
+        return [
+          ...state.filter(item => {
+            console.log("logging in filter for removal", item, payload);
+            return item.id !== payload.id;
+          }),
+        ];
       default:
         throw new Error();
     }
   }
-
+  // console.log('listData', listData);
   const [list, dispatch] = React.useReducer(reducer, listData);
 
-  React.useEffect(() => {
-    if (updatedConfig) {
-      const { updateQuery, updatedObject } = updatedConfig;
-      const subscription = API.graphql(graphqlOperation(updateQuery));
-      if (subscription instanceof Observable) {
-        const sub = subscription.subscribe({
-          next: ({
-            value: {
-              data: { [updatedObject]: update }
-            }
-          }: {
-            value: { data: { [updatedObject: string]: ListItemType } };
-          }) => {
-            try {
-              console.log("subscription UPDATED", update.id);
+  useSubscription<ListItemType, VariableType>({
+    config: configs.updatedConfig,
+    dispatch: ({ payload }) => dispatch({ type: ActionType.update, payload }),
+  });
 
-              dispatch({ type: ActionType.update, payload: update });
-            } catch (error) {
-              console.error(
-                `${
-                  error.message
-                } - Check the updatedObject property: the current value is ${updatedObject}`
-              );
-            }
-          }
-        });
-        return () => {
-          sub.unsubscribe();
-        };
-      }
-    }
-    return undefined;
-  }, []);
+  useSubscription<ListItemType, VariableType>({
+    config: configs.createdConfig,
+    dispatch: ({ payload }) => dispatch({ type: ActionType.create, payload }),
+  });
 
-  React.useEffect(() => {
-    if (createdConfig) {
-      const { createQuery, createdObject } = createdConfig;
-      const subscription = API.graphql(graphqlOperation(createQuery));
-      if (subscription instanceof Observable) {
-        const sub = subscription.subscribe({
-          next: ({
-            value: {
-              data: { [createdObject]: create }
-            }
-          }: {
-            value: { data: { [createdObject: string]: ListItemType } };
-          }) => {
-            try {
-              console.log("subscription create", create.id);
-              dispatch({ type: ActionType.create, payload: create });
-            } catch (error) {
-              console.error(
-                `${
-                  error.message
-                } - Check the createdObject property: the current value is ${createdObject}`
-              );
-            }
-          }
-        });
-        return () => {
-          sub.unsubscribe();
-        };
-      }
-    }
-    return undefined;
-  }, []);
+  useSubscription<ListItemType, VariableType>({
+    config: configs.deletedConfig,
+    dispatch: ({ payload }) => dispatch({ type: ActionType.remove, payload }),
+  });
 
-  React.useEffect(() => {
-    if (deletedConfig) {
-      const { deleteQuery, deletedObject } = deletedConfig;
-      const subscription = API.graphql(graphqlOperation(deleteQuery));
-      if (subscription instanceof Observable) {
-        const sub = subscription.subscribe({
-          next: ({
-            value: {
-              data: { [deletedObject]: deleted }
-            }
-          }: {
-            value: { data: { [deletedObject: string]: ListItemType } };
-          }) => {
-            try {
-              console.log("subscription deleted DELETING", deleted.id);
-              dispatch({ type: ActionType.remove, payload: deleted });
-            } catch (error) {
-              console.error(
-                `${
-                  error.message
-                } - Check the deletedObject property: the current value is ${deletedObject}`
-              );
-            }
-          }
-        });
-        return () => {
-          sub.unsubscribe();
-        };
-      }
-    }
-    return undefined;
-  }, []);
-
-  console.log("useCrudSubscription subscription", list);
   return [list];
-};
-
-export const useSubscription = ({ updateQuery, updatedObject }: any) => {
-  function reducer(state: any, { type, payload }: Action<any>) {
-    switch (type) {
-      case ActionType.update:
-        return { ...state, ...payload };
-      default:
-        throw new Error();
-    }
-  }
-
-  const [stuff, dispatch] = React.useReducer(reducer, {});
-  React.useEffect(() => {
-    const subscription = API.graphql(graphqlOperation(updateQuery));
-    if (subscription instanceof Observable) {
-      const sub = subscription.subscribe({
-        next: ({
-          value: {
-            data: { [updatedObject]: update }
-          }
-        }: {
-          value: { data: any };
-        }) => {
-          try {
-            console.log("subscription UPDATED", update);
-
-            dispatch({ type: ActionType.update, payload: update });
-          } catch (error) {
-            console.error(
-              `${
-                error.message
-              } - Check the updatedObject property: the current value is ${updatedObject}`
-            );
-          }
-        }
-      });
-      return () => {
-        sub.unsubscribe();
-      };
-    }
-  }, []);
-
-  return stuff;
 };

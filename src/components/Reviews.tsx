@@ -49,12 +49,11 @@ const Reviews: React.FC<RouteComponentProps<{ id: string }>> = ({ id }) => {
               Refresh
             </Button>
           </div>
-          {/* {oc(data)
-            .listGameItems.items([])
-            .filter(notEmpty)
-            .map(game => (
-              <Typography key={game.id}>{game.name}</Typography>
-            ))} */}
+          {oc(data)
+            .getGameItem.reviews.items([])
+            .map(review => (
+              <Typography>{oc(review).content()}</Typography>
+            ))}
         </Grid>
         <Grid item sm={6}>
           <Typography>Add Review</Typography>

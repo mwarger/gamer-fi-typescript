@@ -33,7 +33,7 @@ const MyGames: React.FC<RouteComponentProps<{}>> = ({}) => {
     <Typography>Loading...</Typography>
   ) : (
     <>
-      <Grid container spacing={16}>
+      <Grid container spacing={2}>
         <Grid item sm={6}>
           <div
             style={{
@@ -69,6 +69,7 @@ const MyGames: React.FC<RouteComponentProps<{}>> = ({}) => {
                     Reviews
                   </Link>
                 </Typography>
+                {/* <Typography>Rating: {game.rating || "No Rating"}</Typography> */}
                 <LikeHandler id={game.id} currentLikes={Number(game.likes)} />
               </div>
             ))}
@@ -119,10 +120,17 @@ const LikeHandler: React.FC<{ id: string; currentLikes: number }> = ({
   // DISCUSS: subscriptions for realtime data
   const stuff = useSubscription({
     updateQuery: onUpdateGameItem,
-    updatedObject: "onUpdateGameItem"
+    updatedObject: "onUpdateGameItem",
+    args: { id }
   });
 
-  const likes = stuff.likes || currentLikes;
+  console.log("stuff", stuff);
+  let likes = currentLikes;
+
+  if (stuff && stuff.id === id) {
+    likes = stuff.likes;
+  }
+
   return (
     <div style={{ display: "flex", alignItems: "center" }}>
       <IconButton

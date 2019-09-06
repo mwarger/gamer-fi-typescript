@@ -6,7 +6,6 @@ export const onCreateGameItem = `subscription OnCreateGameItem {
     id
     name
     likes
-    rating
     reviews {
       items {
         id
@@ -32,7 +31,6 @@ export const onUpdateGameItem = `subscription OnUpdateGameItem {
     id
     name
     likes
-    rating
     reviews {
       items {
         id
@@ -58,7 +56,6 @@ export const onDeleteGameItem = `subscription OnDeleteGameItem {
     id
     name
     likes
-    rating
     reviews {
       items {
         id
@@ -76,6 +73,66 @@ export const onDeleteGameItem = `subscription OnDeleteGameItem {
       }
       nextToken
     }
+  }
+}
+`;
+export const onCreateReview = `subscription OnCreateReview {
+  onCreateReview {
+    id
+    score
+    content
+    game {
+      id
+      name
+      likes
+      reviews {
+        nextToken
+      }
+      notes {
+        nextToken
+      }
+    }
+    reviewGameId
+  }
+}
+`;
+export const onUpdateReview = `subscription OnUpdateReview {
+  onUpdateReview {
+    id
+    score
+    content
+    game {
+      id
+      name
+      likes
+      reviews {
+        nextToken
+      }
+      notes {
+        nextToken
+      }
+    }
+    reviewGameId
+  }
+}
+`;
+export const onDeleteReview = `subscription OnDeleteReview {
+  onDeleteReview {
+    id
+    score
+    content
+    game {
+      id
+      name
+      likes
+      reviews {
+        nextToken
+      }
+      notes {
+        nextToken
+      }
+    }
+    reviewGameId
   }
 }
 `;
@@ -100,69 +157,6 @@ export const onDeleteNote = `subscription OnDeleteNote {
     id
     entryDate
     comment
-  }
-}
-`;
-export const onCreateReview = `subscription OnCreateReview {
-  onCreateReview {
-    id
-    score
-    content
-    game {
-      id
-      name
-      likes
-      rating
-      reviews {
-        nextToken
-      }
-      notes {
-        nextToken
-      }
-    }
-    reviewGameId
-  }
-}
-`;
-export const onUpdateReview = `subscription OnUpdateReview {
-  onUpdateReview {
-    id
-    score
-    content
-    game {
-      id
-      name
-      likes
-      rating
-      reviews {
-        nextToken
-      }
-      notes {
-        nextToken
-      }
-    }
-    reviewGameId
-  }
-}
-`;
-export const onDeleteReview = `subscription OnDeleteReview {
-  onDeleteReview {
-    id
-    score
-    content
-    game {
-      id
-      name
-      likes
-      rating
-      reviews {
-        nextToken
-      }
-      notes {
-        nextToken
-      }
-    }
-    reviewGameId
   }
 }
 `;

@@ -6,7 +6,6 @@ export const createGameItem = `mutation CreateGameItem($input: CreateGameItemInp
     id
     name
     likes
-    rating
     reviews {
       items {
         id
@@ -32,7 +31,6 @@ export const updateGameItem = `mutation UpdateGameItem($input: UpdateGameItemInp
     id
     name
     likes
-    rating
     reviews {
       items {
         id
@@ -58,7 +56,6 @@ export const deleteGameItem = `mutation DeleteGameItem($input: DeleteGameItemInp
     id
     name
     likes
-    rating
     reviews {
       items {
         id
@@ -76,6 +73,66 @@ export const deleteGameItem = `mutation DeleteGameItem($input: DeleteGameItemInp
       }
       nextToken
     }
+  }
+}
+`;
+export const createReview = `mutation CreateReview($input: CreateReviewInput!) {
+  createReview(input: $input) {
+    id
+    score
+    content
+    game {
+      id
+      name
+      likes
+      reviews {
+        nextToken
+      }
+      notes {
+        nextToken
+      }
+    }
+    reviewGameId
+  }
+}
+`;
+export const updateReview = `mutation UpdateReview($input: UpdateReviewInput!) {
+  updateReview(input: $input) {
+    id
+    score
+    content
+    game {
+      id
+      name
+      likes
+      reviews {
+        nextToken
+      }
+      notes {
+        nextToken
+      }
+    }
+    reviewGameId
+  }
+}
+`;
+export const deleteReview = `mutation DeleteReview($input: DeleteReviewInput!) {
+  deleteReview(input: $input) {
+    id
+    score
+    content
+    game {
+      id
+      name
+      likes
+      reviews {
+        nextToken
+      }
+      notes {
+        nextToken
+      }
+    }
+    reviewGameId
   }
 }
 `;
@@ -100,69 +157,6 @@ export const deleteNote = `mutation DeleteNote($input: DeleteNoteInput!) {
     id
     entryDate
     comment
-  }
-}
-`;
-export const createReview = `mutation CreateReview($input: CreateReviewInput!) {
-  createReview(input: $input) {
-    id
-    score
-    content
-    game {
-      id
-      name
-      likes
-      rating
-      reviews {
-        nextToken
-      }
-      notes {
-        nextToken
-      }
-    }
-    reviewGameId
-  }
-}
-`;
-export const updateReview = `mutation UpdateReview($input: UpdateReviewInput!) {
-  updateReview(input: $input) {
-    id
-    score
-    content
-    game {
-      id
-      name
-      likes
-      rating
-      reviews {
-        nextToken
-      }
-      notes {
-        nextToken
-      }
-    }
-    reviewGameId
-  }
-}
-`;
-export const deleteReview = `mutation DeleteReview($input: DeleteReviewInput!) {
-  deleteReview(input: $input) {
-    id
-    score
-    content
-    game {
-      id
-      name
-      likes
-      rating
-      reviews {
-        nextToken
-      }
-      notes {
-        nextToken
-      }
-    }
-    reviewGameId
   }
 }
 `;
